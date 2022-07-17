@@ -1,3 +1,4 @@
+MS_TPM_20=ms-tpm-20-lib
 LIBC_INC = -I../smallc/include
 OPENSSL_INC = -I../openssl/include \
 	-I../openssl-stubs/conf-include
@@ -18,11 +19,11 @@ PLATFORM_INC = -Iplatform/include \
 PLATFORM_TARGET = libplatform.a platform.lib
 PLATFORM_CFLAGS =
 
-TPM_C := $(wildcard ../ms-tpm-20-ref/TPMCmd/tpm/src/**/*.c) $(wildcard ../ms-tpm-20-ref/TPMCmd/tpm/src/**/**/*.c)
-TPM_H := $(wildcard ../ms-tpm-20-ref/TPMCmd/tpm/include/*.h) $(wildcard ../ms-tpm-20-ref/TPMCmd/tpm/include/**/*.h)
+TPM_C := $(wildcard ../$(MS_TPM_20)/TPMCmd/tpm/src/**/*.c) $(wildcard ../$(MS_TPM_20)/TPMCmd/tpm/src/**/**/*.c)
+TPM_H := $(wildcard ../$(MS_TPM_20)/TPMCmd/tpm/include/*.h) $(wildcard ../$(MS_TPM_20)/TPMCmd/tpm/include/**/*.h)
 TPM_OBJ = $(TPM_C:.c=.o)
-TPM_INC = -I../ms-tpm-20-ref/TPMCmd/tpm/include \
-	-I../ms-tpm-20-ref/TPMCmd/tpm/include/prototypes
+TPM_INC = -I../$(MS_TPM_20)/TPMCmd/tpm/include \
+	-I../$(MS_TPM_20)/TPMCmd/tpm/include/prototypes
 TPM_CONFIG_INCLUDE = -include ./include/TpmProfile.h
 TPM_TARGET = libtpm.a tpm.lib
 TPM_DEFINED = -DTHIRTY_TWO_BIT -DRADIX_BITS=32 -DCERTIFYX509_DEBUG=NO -DSIMULATION=NO
