@@ -1,9 +1,8 @@
 #![no_std]
-#![feature(asm)]
 #![feature(naked_functions)]
 
 extern crate alloc;
-
+use core::arch::asm;
 #[no_mangle]
 pub extern "C" fn __fw_debug_msg(msg: *const u8, len: usize) {
     let msg = unsafe {
