@@ -6,7 +6,9 @@
 #ifndef TPM_CONTEXT_H
 #define TPM_CONTEXT_H
 
-#define MAX_TPM_CONTEXT_COUNT   16
+#ifndef MAX_TPM_CONTEXT_COUNT
+#define MAX_TPM_CONTEXT_COUNT   256
+#endif
 
 #if defined TPM_CONTEXT_C
 // The following arrays are used to save command sessions information so that the
