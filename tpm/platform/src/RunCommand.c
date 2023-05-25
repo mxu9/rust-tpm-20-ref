@@ -52,6 +52,7 @@
 #include "Platform.h"
 // #include <setjmp.h>
 #include "ExecCommand_fp.h"
+#include "Manufacture_fp.h"
 
 // jmp_buf              s_jumpBuffer;
 
@@ -89,3 +90,33 @@ _plat__Fail(
     printf("plat fail deadloop");
     for(;;);
 }
+
+LIB_EXPORT int
+_plat__TPM_Terminate(
+    void
+)
+{
+    TPM_TearDown();
+    _plat__Signal_PowerOn();
+    _plat__Signal_Reset();
+
+    return 0;
+}
+
+LIB_EXPORT int
+_plat__TPM_Initialize(
+    int             firstTime       // IN: indicates if this is the first call from
+                                    //     main()
+)
+{
+    _plat__Signal_PowerOff();
+    _plat__NVEnable(NULL);
+    TPM_Manufacture(firstTime);
+
+    _plat__Signal_PowerOn();
+    _plat__SetNvAvail();
+    _plat__NvCommit();
+
+    return 0;
+}
+

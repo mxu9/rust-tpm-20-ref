@@ -535,4 +535,15 @@ _plat__GetUnique(
     unsigned char       *b              // output buffer
 );
 
+LIB_EXPORT int
+_plat__TPM_Terminate(
+    void
+);
+
+LIB_EXPORT int
+_plat__TPM_Initialize(
+    int             firstTime       // IN: indicates if this is the first call from
+                                    //     main()
+);
+
 #endif  // _PLATFORM_FP_H_
