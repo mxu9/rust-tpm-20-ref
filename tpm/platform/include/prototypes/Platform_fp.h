@@ -563,9 +563,4 @@ _plat__GetTscFreq(
     void
 );
 
-LIB_EXPORT uint32_t
-_plat__GetMaxTpmContextCount(
-    void
-);
-
 #endif  // _PLATFORM_FP_H_

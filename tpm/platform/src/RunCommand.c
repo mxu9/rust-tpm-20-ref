@@ -132,13 +132,6 @@ _plat__GetTscFreq(
     return GetTscFreq();
 }
 
-LIB_EXPORT uint32_t
-_plat__GetMaxTpmContextCount(
-    void
-)
-{
-    return MAX_TPM_CONTEXT_COUNT;
-}
 
 LIB_EXPORT int
 _plat__TPM_Initialize(
