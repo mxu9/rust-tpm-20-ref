@@ -52,8 +52,6 @@
 #include "Platform.h"
 // #include <setjmp.h>
 #include "ExecCommand_fp.h"
-#include "Manufacture_fp.h"
-#include "TpmContext.h"
 
 // jmp_buf              s_jumpBuffer;
 
@@ -71,12 +69,10 @@ _plat__RunCommand(
     uint32_t         requestSize,   // IN: command buffer size
     unsigned char   *request,       // IN: command buffer
     uint32_t        *responseSize,  // IN/OUT: response buffer size
-    unsigned char   **response,      // IN/OUT: response buffer
-    uint32_t         contextId
+    unsigned char   **response      // IN/OUT: response buffer
     )
 {
     // setjmp(s_jumpBuffer);
-    SwitchTpmContext(contextId);
     ExecuteCommand(requestSize, request, responseSize, response);
 }
 
@@ -92,54 +88,4 @@ _plat__Fail(
     assert(0);
     printf("plat fail deadloop");
     for(;;);
-}
-
-LIB_EXPORT int
-_plat__TPM_Terminate(
-    uint32_t        contextId
-)
-{
-    SwitchTpmContext(contextId);
-
-    TPM_TearDown();
-    _plat__Signal_PowerOn();
-    _plat__Signal_Reset();
-
-    return 0;
-}
-
-LIB_EXPORT uint64_t
-_plat__SwitchTimeUsed(
-    void
-)
-{
-    return GetSwitchTimeUsed();
-}
-
-LIB_EXPORT uint64_t
-_plat__ReadTsc(
-    void
-)
-{
-    return ReadTsc();
-}
-
-LIB_EXPORT int
-_plat__TPM_Initialize(
-    uint32_t        contextId,
-    int             firstTime       // IN: indicates if this is the first call from
-                                    //     main()
-)
-{
-    SwitchTpmContext(contextId);
-
-    _plat__Signal_PowerOff();
-    _plat__NVEnable(NULL);
-    TPM_Manufacture(firstTime);
-
-    _plat__Signal_PowerOn();
-    _plat__SetNvAvail();
-    _plat__NvCommit();
-
-    return 0;
 }
