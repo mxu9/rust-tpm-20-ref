@@ -10,9 +10,6 @@ CFLAGS += ${LLVM_TARGET_ARCH} ${DEFINED} ${INCLUDES} \
 	-mno-red-zone -mcmodel=small \
 	-fno-builtin -fno-stack-protector
 
-## Set the max tpm instance count.
-CFLAGS += -DMAX_TPM_CONTEXT_COUNT=256
-
 PLATFORM_C := $(wildcard platform/src/*.c) $(wildcard ../openssl-stubs/rand_pool.c)
 PLATFORM_H := $(wildcard platform/include/*.h) $(wildcard platform/include/**/*.h)
 PLATFORM_OBJ = $(PLATFORM_C:.c=.o)
