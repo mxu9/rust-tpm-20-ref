@@ -105,12 +105,13 @@ _plat__TPM_Terminate(
 
 LIB_EXPORT int
 _plat__TPM_Initialize(
-    int             firstTime       // IN: indicates if this is the first call from
-                                    //     main()
+    int             firstTime,       // IN: indicates if this is the first call from
+                                     //     main()
+    void            *platParameter
 )
 {
     _plat__Signal_PowerOff();
-    _plat__NVEnable(NULL);
+    _plat__NVEnable(platParameter);
     TPM_Manufacture(firstTime);
 
     _plat__Signal_PowerOn();

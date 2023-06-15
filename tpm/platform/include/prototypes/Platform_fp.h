@@ -542,8 +542,9 @@ _plat__TPM_Terminate(
 
 LIB_EXPORT int
 _plat__TPM_Initialize(
-    int             firstTime       // IN: indicates if this is the first call from
-                                    //     main()
+    int             firstTime,       // IN: indicates if this is the first call from
+                                     //     main()
+    void            *platParameter  // IN: platform parameters
 );
 
 #endif  // _PLATFORM_FP_H_

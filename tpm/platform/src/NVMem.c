@@ -176,7 +176,7 @@ _plat__NvErrors(
 //      <0          if unrecoverable error
 LIB_EXPORT int
 _plat__NVEnable(
-    void            *platParameter  // IN: platform specific parameters
+    void            *platParameter    // IN: platform specific parameters
     )
 {
     NOT_REFERENCED(platParameter);          // to keep compiler quiet
@@ -186,6 +186,11 @@ _plat__NVEnable(
     s_NV_recoverable = FALSE;
 
     _plat__NvMemoryClear(0, NV_MEMORY_SIZE);
+
+    if (platParameter != NULL) {
+        memcpy(s_NV, platParameter, NV_MEMORY_SIZE);
+    }
+
 #if FILE_BACKED_NV
     if(s_NvFile != NULL)
         return 0;
